@@ -55,6 +55,14 @@ router.get('/:id/posts', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // do your magic!
+  Users.remove(req.params.id)
+    .then(response => {
+      console.log('-------------------->',response)
+      res.status(201).json(response)
+    })
+    .catch(error => {
+      res.status(500).json(error)
+    })
 });
 
 router.put('/:id', (req, res) => {
