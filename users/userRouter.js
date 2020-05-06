@@ -33,10 +33,24 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   // do your magic!
+  Users.getById(req.params.id)
+    .then(user => {
+      res.status(201).json(user)
+    })
+    .catch(error => {
+      res.status(500).json(error)
+    })
 });
 
 router.get('/:id/posts', (req, res) => {
   // do your magic!
+  Users.getUserPosts(req.params.id)
+    .then(posts => {
+      res.status(201).json(posts)
+    })
+    .catch(error => {
+      res.status(500).json(error)
+    })
 });
 
 router.delete('/:id', (req, res) => {
