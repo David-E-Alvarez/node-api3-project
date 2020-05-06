@@ -67,6 +67,14 @@ router.delete('/:id', (req, res) => {
 
 router.put('/:id', (req, res) => {
   // do your magic!
+  Users.update(req.params.id, req.body)
+    .then(change => {
+      console.log('---------------->', change)
+      res.status(201).json(change)
+    })
+    .catch(error => {
+      res.status(500).json(error)
+    })
 });
 
 //custom middleware
