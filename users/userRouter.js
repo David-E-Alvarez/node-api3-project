@@ -16,6 +16,7 @@ router.post('/', (req, res) => {
 
 });
 
+//think i need to get posts first to see what posts are
 router.post('/:id/posts', (req, res) => {
   // do your magic!
 });

@@ -9,6 +9,9 @@ server.use(validateUserId);
 //defining user routes
 const userRouter = require('./users/userRouter.js');
 server.use('/api/users', userRouter);
+//define post routes
+const postRouter = require('./posts/postRouter.js');
+server.use('/api/posts', postRouter);
 
 server.get('/', (req, res) => {
   res.send(`<h1>Let's write some middleware!</h1>`);
