@@ -8,7 +8,6 @@ router.get('/', (req, res) => {
   // do your magic!
   Posts.get()
     .then(posts => {
-      console.log('------------>', posts);
       res.status(201).json(posts)
     })
     .catch(error => {
