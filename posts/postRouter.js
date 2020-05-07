@@ -18,14 +18,36 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   // do your magic!
+  Posts.getById(req.params.id)
+    .then(user => {
+      res.status(201).json(user)
+    })
+    .catch(error => {
+      res.status(500).json({error_message: error})
+    })
+
 });
 
 router.delete('/:id', (req, res) => {
   // do your magic!
+  Posts.remove(req.params.id)
+    .then(user => {
+      res.status(201).json(user)
+    })
+    .catch(error => {
+      res.status(500).json(error)
+    })
 });
 
 router.put('/:id', (req, res) => {
   // do your magic!
+  Posts.update(req.params.id, req.body)
+    .then(user => {
+      res.status(201).json(user)
+    })
+    .catch(error => {
+      res.status(500).json(error)
+    })
 });
 
 // custom middleware
