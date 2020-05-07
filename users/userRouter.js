@@ -24,12 +24,12 @@ router.post('/:id/posts', (req, res) => {
   // do your magic!  
   Users.getUserPosts(req.params.id)
     .then(posts => {
-      console.log("------------->", posts)
+      // console.log("------------->", posts)
       // res.status(201).json(something)
       Posts.insert(req.body)
-        console.log('req.body------>,', req.body.text)
+        // console.log('req.body------>,', req.body.text)
         .then(something => {
-          console.log('---------------->', something)
+          // console.log('---------------->', something)
           res.status(201).json(something)
         })
         .catch(error => {
@@ -101,9 +101,15 @@ router.put('/:id', (req, res) => {
 // validateUserId()
 function validateUserId(req,res,next){
   console.log("validateUserId's req.params.id", req.params.id);
-  if(req.params.id){
-
-  }
+  Users.getById(req.params.id)
+    .then(something => {
+      console.log('---------THIS', something);
+      req.user = something;
+      console.log('-----req.user----->', req.user)
+    })
+    .catch(error => {
+      res.status(400).json({message: "invalid user id"})
+    })
   // [ ] "validateUserId()" validates the user id on every request that expects a user id parameter
   // [ ]if the id parameter is valid, store that user object as req.user
   // [ ]if the id parameter does not match any user id in the database, cancel the request and respond with status 400 and { message: "invalid user id" }
