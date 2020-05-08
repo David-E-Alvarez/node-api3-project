@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 // code away!
 
+=======
+>>>>>>> master
 const server = require('./server.js');
 
 server.listen(4000, () => {

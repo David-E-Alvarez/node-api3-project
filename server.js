@@ -1,6 +1,9 @@
 const express = require('express');
+const morgan = require("morgan");
+const helmet = require("helmet");
 
 const server = express();
+
 
 server.use(express.json());
 server.use(logger);
@@ -11,6 +14,9 @@ server.use('/api/users', userRouter);
 //define post routes
 const postRouter = require('./posts/postRouter.js');
 server.use('/api/posts', postRouter);
+
+
+
 
 server.get('/', (req, res) => {
   res.send(`<h1>Let's write some middleware!</h1>`);
@@ -25,6 +31,12 @@ function logger(req, res, next) {
 
 
 
+<<<<<<< HEAD
+=======
+function logger(req, res, next) {
+  
+}
+>>>>>>> master
 
 module.exports = server;
 
