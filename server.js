@@ -30,14 +30,6 @@ function logger(req, res, next) {
 
 
 
-
-<<<<<<< HEAD
-=======
-function logger(req, res, next) {
-  
-}
->>>>>>> master
-
 module.exports = server;
 
 
