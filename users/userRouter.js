@@ -56,6 +56,7 @@ router.get('/:id', validateUserId, (req, res) => {
   // do your magic!
   Users.getById(req.params.id)
     .then(user => {
+      console.log("here---->",user)
       res.status(201).json(user)
     })
     .catch(error => {
@@ -63,7 +64,7 @@ router.get('/:id', validateUserId, (req, res) => {
     })
 });
 
-router.get('/:id/posts', (req, res) => {
+router.get('/:id/posts', validateUserId, (req, res) => {
   // do your magic!
   Users.getUserPosts(req.params.id)
     .then(posts => {
@@ -74,7 +75,7 @@ router.get('/:id/posts', (req, res) => {
     })
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', validateUserId, (req, res) => {
   // do your magic!
   Users.remove(req.params.id)
     .then(response => {
@@ -85,7 +86,7 @@ router.delete('/:id', (req, res) => {
     })
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', validateUser, (req, res) => {
   // do your magic!
   Users.update(req.params.id, req.body)
     .then(change => {
@@ -98,22 +99,24 @@ router.put('/:id', (req, res) => {
 
 //custom middleware
 
+
 // validateUserId()
 function validateUserId(req,res,next){
-  console.log("validateUserId's req.params.id", req.params.id);
   Users.getById(req.params.id)
-    .then(something => {
-      console.log('---------THIS', something);
-      req.user = something;
-      console.log('-----req.user----->', req.user)
+    .then(user =>{
+      console.log("--------->", user)
+      if(user){
+        req.user = user;
+        next();
+      }else{
+        res.status(400).json("sorry no user")
+        next();
+      }
+      // res.status(201).json(user)
     })
     .catch(error => {
-      res.status(400).json({message: "invalid user id"})
+      res.status(500).json(error)
     })
-  // [ ] "validateUserId()" validates the user id on every request that expects a user id parameter
-  // [ ]if the id parameter is valid, store that user object as req.user
-  // [ ]if the id parameter does not match any user id in the database, cancel the request and respond with status 400 and { message: "invalid user id" }
-  next();
 }
 
 function validateUser(req, res, next) {
@@ -123,5 +126,6 @@ function validateUser(req, res, next) {
 // function validatePost(req, res, next) {
 //   // do your magic!
 // }
+
 
 module.exports = router;
